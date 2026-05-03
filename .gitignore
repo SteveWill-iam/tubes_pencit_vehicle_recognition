@@ -1,0 +1,27 @@
+# Lingkungan Virtual Python (Sangat spesifik per komputer, dilarang masuk Git)
+.venv/
+venv/
+env/
+
+# Cache Python (File sampah otomatis dari sistem)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Konfigurasi Editor/IDE lokal
+.vscode/
+.idea/
+
+# DATASET (PENTING: Jangan masukkan ratusan/ribuan gambar ke Git agar tidak berat!)
+dataset/
+
+# Model & Weights (File hasil training biasanya besar, hindari masuk Git kecuali wajib)
+*.keras
+*.h5
+*.hdf5
+best_vehicle_model.keras
+
+# File sistem OS (Sering nyempil otomatis)
+.DS_Store
+Thumbs.db

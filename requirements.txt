@@ -1,0 +1,17 @@
+# Machine Learning & Deep Learning Framework
+tensorflow
+
+# Dataset Downloader
+kagglehub
+
+# Image Processing (Sesuai rencana eksperimen Canny/Grayscale)
+opencv-python
+
+# Visualisasi Data (Untuk grafik akurasi & loss)
+matplotlib
+
+# Komputasi Numerik
+numpy
+
+# Jupyter (Jika ada anggota tim yang ingin mencoba kode di Jupyter Notebook)
+jupyter
