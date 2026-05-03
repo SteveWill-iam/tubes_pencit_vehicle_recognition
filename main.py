@@ -3,6 +3,8 @@ import cv2
 import os
 import matplotlib.pyplot as plt
 import tensorflow as tf
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 from tensorflow.keras import layers, models, callbacks
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
