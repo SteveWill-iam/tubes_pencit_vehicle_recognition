@@ -72,7 +72,7 @@ if __name__ == "__main__":
     
     train_dir = 'dataset/train'
     test_dir = 'dataset/test'
-    test_img_path = 'test_images/mobiltengahjalan.jpeg'
+    test_images_dir = 'test_images'
     
     # 1. Visualisasi Cara Kerja (Ambil 1 contoh gambar)
     try:
@@ -153,26 +153,36 @@ if __name__ == "__main__":
     model.save('best_vehicle_model.keras')
     print("\n✅ Model terbaik berhasil disimpan sebagai 'best_vehicle_model.keras'")
     
-    # 6. Testing pada Gambar Baru (Mobil Merah)
-    if os.path.exists(test_img_path):
-        print(f"\n[PREDIKSI] Memulai prediksi pada gambar '{test_img_path}'...")
-        img = cv2.imread(test_img_path)
-        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    # 6. Testing pada Banyak Gambar Baru
+    if os.path.exists(test_images_dir) and os.listdir(test_images_dir):
+        print(f"\n[PREDIKSI MULTIPEL] Memulai prediksi pada semua gambar di folder '{test_images_dir}'...")
         
-        img_resized = cv2.resize(img_rgb, (224, 224))
-        img_array = np.expand_dims(img_resized, axis=0) / 255.0
-        
-        print(" -> Menjalankan model.predict()...")
-        predictions = model.predict(img_array)[0]
-        
-        hasil_index = np.argmax(predictions)
-        hasil_label = class_names[hasil_index]
-        keyakinan = predictions[hasil_index] * 100
-        
-        print(f"\n HASIL SOFTMAX AKHIR:")
-        for i, prob in enumerate(predictions):
-            print(f"   - {class_names[i].capitalize():<12} : {prob * 100:.2f}%")
+        for img_name in os.listdir(test_images_dir):
+            if not img_name.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp')):
+                continue # Hiraukan file selain gambar
+                
+            img_path = os.path.join(test_images_dir, img_name)
+            print(f"\n--- Memproses gambar: '{img_name}' ---")
             
-        print(f"\n KESIMPULAN: Mesin mendeteksi gambar ini sebagai '{hasil_label.upper()}' dengan probabilitas {keyakinan:.2f}%!")
+            img = cv2.imread(img_path)
+            if img is None:
+                print(f"Gagal membaca gambar {img_name}")
+                continue
+                
+            img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            img_resized = cv2.resize(img_rgb, (224, 224))
+            img_array = np.expand_dims(img_resized, axis=0) / 255.0
+            
+            predictions = model.predict(img_array, verbose=0)[0]
+            
+            hasil_index = np.argmax(predictions)
+            hasil_label = class_names[hasil_index]
+            keyakinan = predictions[hasil_index] * 100
+            
+            print("HASIL SOFTMAX:")
+            for i, prob in enumerate(predictions):
+                print(f"  - {class_names[i].capitalize():<12} : {prob * 100:.2f}%")
+                
+            print(f"➤ KESIMPULAN: Mesin mendeteksi '{img_name}' sebagai '{hasil_label.upper()}' dengan probabilitas {keyakinan:.2f}%!")
     else:
-        print(f"\n⚠️ [Peringatan] Gambar tes '{test_img_path}' tidak ditemukan.")
+        print(f"\n⚠️ [Peringatan] Folder '{test_images_dir}' tidak ditemukan atau kosong.")
