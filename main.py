@@ -165,7 +165,7 @@ if __name__ == "__main__":
         )
         
         # Simpan Model Terbaik -> ganti nama model jika ingin membuat model baru
-        model.save('best_vehicle_model_55mb_30ep.keras')
+        model.save('best_vehicle_model_1-6gb_30ep.keras')
         print("\n✅ Model terbaik berhasil disimpan")
         
     elif mode_choice == '2':
@@ -226,6 +226,10 @@ if __name__ == "__main__":
             for i, prob in enumerate(predictions):
                 print(f"  - {class_names[i].capitalize():<12} : {prob * 100:.2f}%")
                 
-            print(f"➤ KESIMPULAN: Mesin mendeteksi '{img_name}' sebagai '{hasil_label.upper()}' dengan probabilitas {keyakinan:.2f}%!")
+            threshold = 70.0
+            if keyakinan >= threshold:
+                print(f"➤ KESIMPULAN: Mesin dengan yakin mendeteksi '{img_name}' sebagai '{hasil_label.upper()}' (Probabilitas {keyakinan:.2f}%)!")
+            else:
+                print(f"➤ KESIMPULAN: Mesin TIDAK YAKIN ({keyakinan:.2f}% < {threshold}%). Tidak bisa menentukan jawaban yang pasti untuk '{img_name}'.")
     else:
         print(f"\n⚠️ [Peringatan] Folder '{test_images_dir}' tidak ditemukan atau kosong.")
