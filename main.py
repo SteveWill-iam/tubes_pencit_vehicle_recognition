@@ -101,7 +101,7 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"Gagal melakukan visualisasi: {e}")
         
-        # 2. Persiapan Data (Data Augmentation & Pipeline)
+        # 2. Persiapan Data
         print("\n[DATA] Mempersiapkan Dataset dengan Data Augmentation...")
         train_datagen = ImageDataGenerator(
             rescale=1./255,           # Normalisasi pixel 0-1
