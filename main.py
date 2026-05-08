@@ -128,7 +128,7 @@ if __name__ == "__main__":
             class_mode='categorical'
         )
         
-        # 3. Membangun Arsitektur CNN Manual (Sesuai README, Tanpa Transfer Learning)
+        # 3. Membangun Arsitektur CNN Manual
         print("\n[MODEL] Membangun Arsitektur CNN manual...")
         model = models.Sequential([
             layers.Conv2D(32, (3, 3), activation='relu', input_shape=(224, 224, 3)),
